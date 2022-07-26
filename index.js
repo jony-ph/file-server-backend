@@ -1,5 +1,6 @@
 import express from "express";
 import fileUpload from "express-fileupload";
+import { mkdir, access } from "node:fs";
 import cors from "cors";
 
 import router from "./routes/router.js";
@@ -23,6 +24,22 @@ app.use(cors());
 // 		else callback(new Error("Not allowed by CORS"));
 // 	},
 // };
+
+const path = "./files";
+
+access(path, (error) => {
+	if (error) {
+		mkdir(path, (error) => {
+			if (error) {
+				console.log(error);
+			} else {
+				console.log("Directory files was created succesfully");
+			}
+		});
+	} else {
+		console.log("Directory already exists");
+	}
+});
 
 // app.use("/", cors(corsOptions), router);
 app.use("/", router);
