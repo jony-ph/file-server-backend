@@ -60,13 +60,9 @@ export const uploadFiles = (req, res) => {
 			message: "File already exist",
 		});
 
-	const ext = name
-		.split(".")
-		.filter(Boolean) // removes empty extensions (e.g. `filename...txt`)
-		.slice(1)
-		.join(".");
+	const ext = name.split(".").filter(Boolean).slice(1).join(".");
 
-	const invalidExtensions = ["exe", "sh", "bin", "bat"];
+	const invalidExtensions = ["exe", "sh", "bin", "bat", "js"];
 
 	if (invalidExtensions.includes(ext)) return;
 	files.mv(name, (error) => {
